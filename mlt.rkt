@@ -28,7 +28,9 @@
          mlt-playlist-append
          mlt-playlist-close
          mlt-playlist-properties
-         mlt-playlist-producer)
+         mlt-playlist-producer
+         mlt-filter-connect
+         mlt-filter-service)
 
 (define lib (ffi-lib "libmlt" '("6")))
 (define-ffi-definer define-mlt lib)
@@ -107,3 +109,9 @@
             #:c-id mlt_playlist_properties)
 (define-mlt mlt-playlist-producer (_fun _mlt-playlist -> _mlt-producer)
             #:c-id mlt_playlist_producer)
+
+;; mlt_filter
+(define-mlt mlt-filter-connect (_fun _mlt-filter _mlt-service _int -> _int)
+            #:c-id mlt_filter_connect)
+(define-mlt mlt-filter-service (_fun _mlt-filter -> _mlt-service)
+            #:c-id mlt_filter_service)
