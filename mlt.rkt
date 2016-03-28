@@ -29,8 +29,20 @@
          mlt-playlist-close
          mlt-playlist-properties
          mlt-playlist-producer
+         mlt-filter-close
          mlt-filter-connect
-         mlt-filter-service)
+         mlt-filter-get-in
+         mlt-filter-get-length
+         mlt-filter-get-length2
+         mlt-filter-get-out
+         mlt-filter-get-position
+         mlt-filter-get-progress
+         mlt-filter-get-track
+         mlt-filter-new
+         mlt-filter-process
+         mlt-filter-properties
+         mlt-filter-service
+         mlt-filter-set-in-and-out)
 
 (define lib (ffi-lib "libmlt" '("6")))
 (define-ffi-definer define-mlt lib)
