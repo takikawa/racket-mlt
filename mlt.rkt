@@ -20,7 +20,12 @@
          mlt-consumer-is-stopped
          mlt-producer-close
          mlt-producer-service
-         mlt-profile-init)
+         mlt-profile-init
+         mlt-playlist-init
+         mlt-playlist-append
+         mlt-playlist-close
+         mlt-playlist-properties
+         mlt-playlist-producer)
 
 (define lib (ffi-lib "libmlt" '("6")))
 (define-ffi-definer define-mlt lib)
@@ -30,6 +35,8 @@
 (define-cpointer-type _mlt-producer)
 (define-cpointer-type _mlt-consumer)
 (define-cpointer-type _mlt-service)
+(define-cpointer-type _mlt-playlist)
+(define-cpointer-type _mlt-properties)
 
 ;;; mlt_factory.c
 (define-mlt mlt-environment (_fun _string -> _string)
@@ -81,3 +88,15 @@
             #:c-id mlt_producer_close)
 (define-mlt mlt-producer-service (_fun _mlt-producer -> _mlt-service)
             #:c-id mlt_producer_service)
+
+;; mlt_playlist
+(define-mlt mlt-playlist-init (_fun -> _mlt-playlist)
+            #:c-id mlt_playlist_init)
+(define-mlt mlt-playlist-append (_fun _mlt-playlist _mlt-producer -> _bool)
+            #:c-id mlt_playlist_append)
+(define-mlt mlt-playlist-close (_fun _mlt-playlist -> _void)
+            #:c-id mlt_playlist_close)
+(define-mlt mlt-playlist-properties (_fun _mlt-playlist -> _mlt-properties)
+            #:c-id mlt_playlist_properties)
+(define-mlt mlt-playlist-producer (_fun _mlt-playlist -> _mlt-producer)
+            #:c-id mlt_playlist_producer)
