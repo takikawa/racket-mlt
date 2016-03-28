@@ -10,9 +10,12 @@
          mlt-factory-close
          mlt-factory-consumer
          mlt-factory-directory
+         mlt-factory-event-object
+         mlt-factory-filter
          mlt-factory-init
          mlt-factory-producer
          mlt-factory-repository
+         mlt-factory-transition
          mlt-consumer-close
          mlt-consumer-connect
          mlt-consumer-start
@@ -37,6 +40,8 @@
 (define-cpointer-type _mlt-service)
 (define-cpointer-type _mlt-playlist)
 (define-cpointer-type _mlt-properties)
+(define-cpointer-type _mlt-filter)
+(define-cpointer-type _mlt-transition)
 
 ;;; mlt_factory.c
 (define-mlt mlt-environment (_fun _string -> _string)
@@ -52,8 +57,10 @@
 ; mlt_factory_create_request
 (define-mlt mlt-factory-directory (_fun -> _string)
             #:c-id mlt_factory_directory)
-; mlt_factory_event_object
-; mlt_factory_filter
+(define-mlt mlt-factory-event-object (_fun -> _mlt-properties)
+            #:c-id mlt_factory_event_object)
+(define-mlt mlt-factory-filter (_fun _mlt-profile _string _string -> _mlt-filter)
+            #:c-id mlt_factory_filter)
 (define-mlt mlt-factory-init (_fun _string -> _mlt-repository/null)
             #:c-id mlt_factory_init)
 (define-mlt mlt-factory-producer (_fun _mlt-profile _string _string -> _mlt-producer)
@@ -61,9 +68,9 @@
 ; mlt_factory_register_for_clean_up
 (define-mlt mlt-factory-repository (_fun _string -> _mlt-repository)
             #:c-id mlt_factory_repository)
-; mlt_factory_transition
+(define-mlt mlt-factory-transition (_fun _mlt-profile _string _string -> _mlt-transition)
+            #:c-id mlt_factory_transition)
 ; mlt_global_properties
-; set_common_properties
 
 ;; mlt_profile.h
 (define-mlt mlt-profile-init (_fun _string -> _mlt-profile)
